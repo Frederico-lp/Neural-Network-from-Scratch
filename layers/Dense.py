@@ -1,8 +1,7 @@
 import numpy as np
-import Layer
 
 # Fully Connected Layer (Dense?)
-class FCLayer(Layer):
+class Dense:
     def __init__(self, input_size, output_size):
         self.weights = 0.10 * np.random.randn(input_size, output_size)
         self.bias = np.zeros((1, output_size))

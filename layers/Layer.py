@@ -1,6 +1,4 @@
-import sys
 import numpy as np
-import matplotlib
 
 np.random.seed(0)
 

@@ -1,5 +1,11 @@
 import numpy as np
 
+np.random.seed(2)
+
+from Network import Network
+from layers.ActivationLayer import ActivationLayer
+from layers.Dense import Dense
+
 def spiral_data(points, classes):
     X = np.zeros((points*classes, 2))
     y = np.zeros(points*classes, dtype='uint8')
@@ -12,4 +18,31 @@ def spiral_data(points, classes):
     return X, y
 
 if __name__ == "__main__":
-    pass
+    # nn = Network()
+    # nn.add(Dense(2,3))
+    # nn.add(ActivationLayer("ReLU"))
+    # nn.add(Dense(3,3))
+    # nn.add(ActivationLayer("ReLU"))
+
+    # nn.fit()
+
+    # nn.predict()
+    X, y = spiral_data(100,3)
+
+    l1 = Dense(2,3)
+    l1a = ActivationLayer("ReLU")
+
+    l2 = Dense(3,3)
+    l2a = ActivationLayer("ReLU")
+
+    r = l1.forward_propagation(X)
+    r = l1a.forward_propagation(r)
+
+    r = l2.forward_propagation(r)
+    r = l2a.forward_propagation(r)
+
+    print(r[:5])
+
+
+
+
