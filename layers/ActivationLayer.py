@@ -1,11 +1,11 @@
 import Layer
-import activations
+from utils.activations import *
 
 # inherit from base class Layer
 class ActivationLayer(Layer):
     def __init__(self, activation):
         if(activation == "ReLU"):
-            self.activation_fun = activations.ReLU()
+            self.activation_fun = ReLU()
 
     # returns the activated input
     def forward_propagation(self, input_data):
