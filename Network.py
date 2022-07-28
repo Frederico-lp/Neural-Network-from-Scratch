@@ -40,4 +40,14 @@ class Network:
             print('epoch %d/%d   error=%f' % (i+1, epochs, err))
 
     def predict(self, input_data):
-        pass
+        samples = len(input_data)
+        result = []
+
+        for i in range(samples):
+            # forward propagation
+            output = input_data[i]
+            for layer in self.layers:
+                output = layer.forward_propagation(output)
+            result.append(output)
+
+        return result

@@ -1,4 +1,6 @@
 import numpy as np
+from keras.datasets import mnist
+from keras.utils import np_utils
 
 np.random.seed(2)
 
@@ -6,33 +8,42 @@ from Network import Network
 from layers.ActivationLayer import ActivationLayer
 from layers.Dense import Dense
 
-def spiral_data(points, classes):
-    X = np.zeros((points*classes, 2))
-    y = np.zeros(points*classes, dtype='uint8')
-    for class_number in range(classes):
-        ix = range(points*class_number, points*(class_number+1))
-        r = np.linspace(0.0, 1, points)  # radius
-        t = np.linspace(class_number*4, (class_number+1)*4, points) + np.random.randn(points)*0.2
-        X[ix] = np.c_[r*np.sin(t*2.5), r*np.cos(t*2.5)]
-        y[ix] = class_number
-    return X, y
 
 if __name__ == "__main__":
-    x_train = np.array([[[0,0]], [[0,1]], [[1,0]], [[1,1]]])
-    y_train = np.array([[[0]], [[1]], [[1]], [[0]]])
+
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+
+    x_train = x_train.reshape(x_train.shape[0], 1, 28*28)
+    x_train = x_train.astype('float32')
+    x_train /= 255
+    y_train = np_utils.to_categorical(y_train)
+
+
+    x_test = x_test.reshape(x_test.shape[0], 1, 28*28)
+    x_test = x_test.astype('float32')
+    x_test /= 255
+    y_test = np_utils.to_categorical(y_test)
 
     nn = Network()
-    nn.add(Dense(2,3))
+    nn.add(Dense(28*28, 100))
     nn.add(ActivationLayer("ReLU"))
-    nn.add(Dense(3,3))
+    nn.add(Dense(100,50))
     nn.add(ActivationLayer("ReLU"))
+    nn.add(Dense(50, 10)) 
+    nn.add(ActivationLayer("tanh"))
 
     #for now only one loss is available
-    nn.compile("random input")
+    nn.compile("mse")
 
-    nn.fit(x_train, y_train, 1000, 0.1)
+    nn.fit(x_train[0:2000], y_train[0:2000], epochs=20, learning_rate=0.1)
 
-    #nn.predict()
+    pred = nn.predict(x_test[0:10])
+    print("predicted values : ")
+    print(np.argmax(pred, axis=2))
+    print("true values : ")
+    print(np.argmax(y_test[0:10], axis=1, keepdims=True))
+
+
 
 
 

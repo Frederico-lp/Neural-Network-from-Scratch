@@ -7,6 +7,9 @@ class ActivationLayer:
             self.activation_fun = ReLU
             self.activation_fun_derivate = ReLU_derivate
         #for now other functions are not implemented
+        if(activation == "tanh"):
+            self.activation_fun = tanh
+            self.activation_fun_derivate = tanh_derivate
         else:
             self.activation_fun = ReLU
             self.activation_fun_derivate = ReLU_derivate
