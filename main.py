@@ -18,30 +18,22 @@ def spiral_data(points, classes):
     return X, y
 
 if __name__ == "__main__":
-    # nn = Network()
-    # nn.add(Dense(2,3))
-    # nn.add(ActivationLayer("ReLU"))
-    # nn.add(Dense(3,3))
-    # nn.add(ActivationLayer("ReLU"))
+    x_train = np.array([[[0,0]], [[0,1]], [[1,0]], [[1,1]]])
+    y_train = np.array([[[0]], [[1]], [[1]], [[0]]])
 
-    # nn.fit()
+    nn = Network()
+    nn.add(Dense(2,3))
+    nn.add(ActivationLayer("ReLU"))
+    nn.add(Dense(3,3))
+    nn.add(ActivationLayer("ReLU"))
 
-    # nn.predict()
-    X, y = spiral_data(100,3)
+    #for now only one loss is available
+    nn.compile("random input")
 
-    l1 = Dense(2,3)
-    l1a = ActivationLayer("ReLU")
+    nn.fit(x_train, y_train, 1000, 0.1)
 
-    l2 = Dense(3,3)
-    l2a = ActivationLayer("ReLU")
+    #nn.predict()
 
-    r = l1.forward_propagation(X)
-    r = l1a.forward_propagation(r)
-
-    r = l2.forward_propagation(r)
-    r = l2a.forward_propagation(r)
-
-    print(r[:5])
 
 
 

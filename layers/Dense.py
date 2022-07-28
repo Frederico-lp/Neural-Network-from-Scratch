@@ -7,6 +7,7 @@ class Dense:
         self.bias = np.zeros((1, output_size))
 
     def forward_propagation(self, input_data):
+        self.input = input_data
         self.output = np.dot(input_data, self.weights) + self.bias
         return self.output
 

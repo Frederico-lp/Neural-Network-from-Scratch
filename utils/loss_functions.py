@@ -1,5 +1,4 @@
 import numpy as np
-import math
 
 def categorical_cross_entropy(outputs, target_outputs):
     # avoid infinite values
@@ -13,3 +12,12 @@ def categorical_cross_entropy(outputs, target_outputs):
         correct_target_outputs = np.sum(clipped_target_outputs * target_outputs, axis=1)
 
     return -np.log(correct_target_outputs)
+
+
+# MSE — Mean Squared Error
+def mse(y_true, y_pred):
+    return np.mean(np.power(y_true-y_pred, 2))
+
+
+def mse_derivate(y_true, y_pred):
+    return 2*(y_pred-y_true)/y_true.size
